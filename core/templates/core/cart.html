@@ -1,7 +1,8 @@
 {% extends 'core/base.html' %}
+{% load unicorn %}
 
 {% block content %}
 
-
+  {% unicorn 'cart' user_pk=request.user.pk products=products %}
 
 {% endblock %}

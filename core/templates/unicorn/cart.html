@@ -1,0 +1,58 @@
+<div>
+    <!-- put component code here -->
+    <div class="grid grid-cols-3 gap-4 m-12">
+        <div class="col-span-2">
+            <h2 class="font-medium leading-tight text-4xl mt-0 mb-4 text-blue-600">Products</h2>
+            <div class="flex flex-wrap">
+                {% for product in products %}
+                <a href="#" class="w-[50%] p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{ product.name}}
+                    </h5>
+                    <div class="flex justify-between">
+                        <p class="font-normal text-gray-700 dark:text-gray-400">
+                            ${{ product.price }}
+                        </p>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                                unicorn:click="add_item( {{product.pk}} )">
+                            Add to Cart
+                        </button>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    
+        <div>
+            <h2 class="font-medium leading-tight text-4xl mt-0 mb-4 text-blue-600">Cart</h2>
+            
+            {% if user_products %}
+            <div class="flex flex-col justify-between block p-6 rounded-lg shadow-lg bg-white max-w-sm">
+                {% for product in user_products %}
+                    <div class="flex justify-between my-1">
+                        <p>
+                            {{ product.quantity }} x <b>{{ product.product.name }}</b>
+                        </p>
+                        <p>
+                            <span>${{ product.total_price }}</span>
+                            <button class="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold px-1 rounded"
+                                unicorn:click="delete_item( {{ product.pk }} )">
+                                X
+                            </button>
+                        </p>
+                    </div>
+                {% endfor %}
+
+                <div class="mt-2 border-t-2">
+                    <div class="mt-2 flex justify-between">
+                        <p class="font-bold">TOTAL</p>
+                        <p class="font-bold">${{ total }}</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                There are no products in your cart.
+            {% endif %}
+        </div>
+    </div>
+</div>
